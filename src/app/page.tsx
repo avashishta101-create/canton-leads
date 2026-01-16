@@ -130,11 +130,11 @@ export default function HomePage() {
     const { name, value, type } = e.target;
     const newValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
 
-    setFormData((prev) => ({ ...prev, [name]: newValue }));
+    setFormData((prev: FormData) => ({ ...prev, [name]: newValue }));
 
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors((prev) => {
+      setErrors((prev: FormErrors) => {
         const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
@@ -143,33 +143,33 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-16 sm:py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Request Mobile Auto Detailing in Canton, MI
-          </h1>
-          <p className="text-xl sm:text-2xl text-blue-100 mb-2">
-            We connect you with an available local provider.
-          </p>
-          <p className="text-blue-200">
-            Professional detailing services that come to you.
-          </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="border-b border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 tracking-tight mb-3">
+              Mobile Auto Detailing in Canton, MI
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-600">
+              Connect with local professionals who come to you
+            </p>
+          </div>
         </div>
-      </section>
+      </header>
 
-      {/* Form Section */}
-      <section className="py-12 sm:py-16">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="max-w-2xl mx-auto">
           {submitStatus === 'success' ? (
-            <div className="card text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-8 sm:p-10 text-center">
+              <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
-                  className="w-8 h-8 text-green-600"
+                  className="w-6 h-6 text-green-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -179,199 +179,283 @@ export default function HomePage() {
                   />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Request Submitted!</h2>
-              <p className="text-gray-600 mb-6">{resultMessage}</p>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-2">Request Submitted</h2>
+              <p className="text-gray-600 mb-8">{resultMessage}</p>
               <button
                 onClick={() => setSubmitStatus('idle')}
                 className="btn-primary"
+                type="button"
               >
                 Submit Another Request
               </button>
             </div>
           ) : (
-            <div className="card">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Get a Quote for Mobile Detailing
-              </h2>
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 sm:p-8 lg:p-10">
+              <div className="mb-8">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+                  Request a Quote
+                </h2>
+                <p className="text-gray-600 text-sm">
+                  Fill out the form below and we'll connect you with a local provider
+                </p>
+              </div>
 
               {submitStatus === 'error' && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-                  {resultMessage}
+                <div
+                  className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4"
+                  role="alert"
+                >
+                  <div className="flex items-start">
+                    <svg
+                      className="w-5 h-5 text-red-600 mt-0.5 mr-3 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <p className="text-sm text-red-800">{resultMessage}</p>
+                  </div>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {/* ZIP Code */}
-                <div>
-                  <label htmlFor="zip" className="label-text">
-                    ZIP Code <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="zip"
-                    name="zip"
-                    value={formData.zip}
-                    onChange={handleChange}
-                    placeholder="48187"
-                    maxLength={5}
-                    className={`input-field ${errors.zip ? 'border-red-500' : ''}`}
-                  />
-                  {errors.zip && <p className="error-text">{errors.zip}</p>}
+              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="sm:col-span-2">
+                    <label htmlFor="zip" className="label-text">
+                      ZIP Code <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="zip"
+                      name="zip"
+                      value={formData.zip}
+                      onChange={handleChange}
+                      placeholder="48187"
+                      maxLength={5}
+                      aria-invalid={errors.zip ? 'true' : 'false'}
+                      aria-describedby={errors.zip ? 'zip-error' : undefined}
+                      className={`input-field ${errors.zip ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
+                    />
+                    {errors.zip && (
+                      <p id="zip-error" className="error-text" role="alert">
+                        {errors.zip}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label htmlFor="fullName" className="label-text">
+                      Full Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      placeholder="John Smith"
+                      aria-invalid={errors.fullName ? 'true' : 'false'}
+                      aria-describedby={errors.fullName ? 'fullName-error' : undefined}
+                      className={`input-field ${errors.fullName ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
+                    />
+                    {errors.fullName && (
+                      <p id="fullName-error" className="error-text" role="alert">
+                        {errors.fullName}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="label-text">
+                      Phone Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="(734) 555-1234"
+                      aria-invalid={errors.phone ? 'true' : 'false'}
+                      aria-describedby={errors.phone ? 'phone-error' : undefined}
+                      className={`input-field ${errors.phone ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
+                    />
+                    {errors.phone && (
+                      <p id="phone-error" className="error-text" role="alert">
+                        {errors.phone}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="label-text">
+                      Email <span className="text-gray-500 font-normal">(optional)</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="john@example.com"
+                      aria-invalid={errors.email ? 'true' : 'false'}
+                      aria-describedby={errors.email ? 'email-error' : undefined}
+                      className={`input-field ${errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
+                    />
+                    {errors.email && (
+                      <p id="email-error" className="error-text" role="alert">
+                        {errors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label htmlFor="serviceType" className="label-text">
+                      Service Requested <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      id="serviceType"
+                      name="serviceType"
+                      value={formData.serviceType}
+                      onChange={handleChange}
+                      className="input-field"
+                    >
+                      {SERVICE_TYPES.map((service) => (
+                        <option key={service} value={service}>
+                          {service}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label htmlFor="preferredTiming" className="label-text">
+                      Preferred Timing <span className="text-gray-500 font-normal">(optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="preferredTiming"
+                      name="preferredTiming"
+                      value={formData.preferredTiming}
+                      onChange={handleChange}
+                      placeholder="e.g., Weekend mornings, ASAP"
+                      className="input-field"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label htmlFor="details" className="label-text">
+                      Additional Details <span className="text-gray-500 font-normal">(optional)</span>
+                    </label>
+                    <textarea
+                      id="details"
+                      name="details"
+                      value={formData.details}
+                      onChange={handleChange}
+                      placeholder="Vehicle type, specific concerns, etc."
+                      rows={4}
+                      className="input-field resize-none"
+                    />
+                  </div>
                 </div>
 
-                {/* Full Name */}
-                <div>
-                  <label htmlFor="fullName" className="label-text">
-                    Full Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    placeholder="John Smith"
-                    className={`input-field ${errors.fullName ? 'border-red-500' : ''}`}
-                  />
-                  {errors.fullName && <p className="error-text">{errors.fullName}</p>}
+                <div className="pt-2">
+                  <div className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="consent"
+                      name="consent"
+                      checked={formData.consent}
+                      onChange={handleChange}
+                      aria-invalid={errors.consent ? 'true' : 'false'}
+                      aria-describedby={errors.consent ? 'consent-error' : undefined}
+                      className="mt-0.5 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                    />
+                    <label htmlFor="consent" className="text-sm text-gray-700 leading-relaxed">
+                      By submitting, you agree to be contacted by phone, text, or email regarding
+                      your detailing request. <span className="text-red-500">*</span>
+                    </label>
+                  </div>
+                  {errors.consent && (
+                    <p id="consent-error" className="error-text mt-2" role="alert">
+                      {errors.consent}
+                    </p>
+                  )}
                 </div>
 
-                {/* Phone */}
-                <div>
-                  <label htmlFor="phone" className="label-text">
-                    Phone Number <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="(734) 555-1234"
-                    className={`input-field ${errors.phone ? 'border-red-500' : ''}`}
-                  />
-                  {errors.phone && <p className="error-text">{errors.phone}</p>}
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label htmlFor="email" className="label-text">
-                    Email <span className="text-gray-400">(optional)</span>
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="john@example.com"
-                    className={`input-field ${errors.email ? 'border-red-500' : ''}`}
-                  />
-                  {errors.email && <p className="error-text">{errors.email}</p>}
-                </div>
-
-                {/* Service Type */}
-                <div>
-                  <label htmlFor="serviceType" className="label-text">
-                    Service Requested <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    id="serviceType"
-                    name="serviceType"
-                    value={formData.serviceType}
-                    onChange={handleChange}
-                    className="input-field"
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary w-full"
                   >
-                    {SERVICE_TYPES.map((service) => (
-                      <option key={service} value={service}>
-                        {service}
-                      </option>
-                    ))}
-                  </select>
+                    {isSubmitting ? (
+                      <span className="flex items-center justify-center">
+                        <svg
+                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                        Submitting...
+                      </span>
+                    ) : (
+                      'Request Service'
+                    )}
+                  </button>
                 </div>
-
-                {/* Preferred Timing */}
-                <div>
-                  <label htmlFor="preferredTiming" className="label-text">
-                    Preferred Timing <span className="text-gray-400">(optional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="preferredTiming"
-                    name="preferredTiming"
-                    value={formData.preferredTiming}
-                    onChange={handleChange}
-                    placeholder="e.g., Weekend mornings, ASAP"
-                    className="input-field"
-                  />
-                </div>
-
-                {/* Details */}
-                <div>
-                  <label htmlFor="details" className="label-text">
-                    Additional Details <span className="text-gray-400">(optional)</span>
-                  </label>
-                  <textarea
-                    id="details"
-                    name="details"
-                    value={formData.details}
-                    onChange={handleChange}
-                    placeholder="Vehicle type, specific concerns, etc."
-                    rows={3}
-                    className="input-field resize-none"
-                  />
-                </div>
-
-                {/* Consent */}
-                <div className="flex items-start gap-3">
-                  <input
-                    type="checkbox"
-                    id="consent"
-                    name="consent"
-                    checked={formData.consent}
-                    onChange={handleChange}
-                    className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="consent" className="text-sm text-gray-600">
-                    By submitting, you agree to be contacted by phone, text, or email regarding
-                    your detailing request. <span className="text-red-500">*</span>
-                  </label>
-                </div>
-                {errors.consent && <p className="error-text">{errors.consent}</p>}
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn-primary w-full"
-                >
-                  {isSubmitting ? 'Submitting...' : 'Request Service'}
-                </button>
               </form>
 
-              <p className="mt-6 text-xs text-gray-500 text-center">
+              <p className="mt-8 text-xs text-gray-500 text-center leading-relaxed">
                 This site connects you with independent local mobile auto detailing providers.
                 We are not the service provider.
               </p>
             </div>
           )}
         </div>
-      </section>
+      </main>
 
       {/* Features Section */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">
-            Why Choose Mobile Detailing?
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+      <section className="bg-white border-t border-gray-200 py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3">
+              Why Choose Mobile Detailing?
+            </h2>
+            <p className="text-gray-600">
+              Professional service delivered to your location
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg
                   className="w-6 h-6 text-blue-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -388,17 +472,18 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">We Come to You</h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 No need to drive anywhere. Service at your home, office, or anywhere convenient.
               </p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg
                   className="w-6 h-6 text-blue-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -409,17 +494,18 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Save Time</h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Continue your day while your car gets detailed. No waiting rooms.
               </p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center sm:col-span-2 lg:col-span-1">
+              <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg
                   className="w-6 h-6 text-blue-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -430,7 +516,7 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Local Professionals</h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Connected with trusted, independent detailing providers in Canton, MI.
               </p>
             </div>
@@ -439,15 +525,18 @@ export default function HomePage() {
       </section>
 
       {/* Business CTA */}
-      <section className="py-12 bg-gray-100">
+      <section className="bg-gray-50 border-t border-gray-200 py-16 sm:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3">
             Are You a Mobile Detailing Business?
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
             Get exclusive leads for your service area. One business per ZIP code.
           </p>
-          <Link href="/business" className="btn-primary inline-block">
+          <Link
+            href="/business"
+            className="btn-primary inline-block"
+          >
             Learn More
           </Link>
         </div>
