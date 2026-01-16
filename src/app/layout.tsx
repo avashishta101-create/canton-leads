@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
   title: 'Canton Mobile Detail Pros | Mobile Auto Detailing in Canton, MI',
@@ -44,10 +44,10 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="font-sans min-h-screen flex flex-col bg-gray-50 antialiased">
-        <Header />
-        <main className="flex-grow pt-16 lg:pt-20">{children}</main>
+      <body className="font-sans min-h-screen flex flex-col antialiased">
+        <main className="flex-grow">{children}</main>
         <Footer />
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );
