@@ -5,12 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
 import {
   Select,
   SelectContent,
@@ -18,7 +18,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { CheckCircle2, MapPin, User, Clock, Download, Loader2 } from 'lucide-react';
+import {
+  CheckCircle2,
+  MapPin,
+  Shield,
+  Clock,
+  Sparkles,
+  Loader2,
+  ArrowRight,
+  Star,
+  Zap,
+  Phone
+} from 'lucide-react';
 
 interface FormData {
   zip: string;
@@ -161,64 +172,89 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section with Background Image */}
-      <section className="relative min-h-[700px] lg:min-h-[800px] flex items-center">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2070"
-            alt="Car being detailed"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/40" />
+    <div className="min-h-screen bg-slate-950 overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center">
+        {/* Animated Gradient Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-violet-950/50 to-slate-950" />
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-violet-600/30 rounded-full filter blur-[128px] animate-pulse-slow" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-600/20 rounded-full filter blur-[128px] animate-pulse-slow" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full filter blur-[128px]" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 w-full">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* Grid Pattern Overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left Content */}
-            <div className="text-white">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                Request Mobile<br />
-                Auto Detailing in<br />
-                <span className="text-blue-400">Canton, MI</span>
+            <div className="text-center lg:text-left">
+              <Badge className="mb-6 bg-violet-500/10 text-violet-400 border-violet-500/20 hover:bg-violet-500/20">
+                <Sparkles className="w-3 h-3 mr-1" />
+                #1 Mobile Detailing Platform in Canton
+              </Badge>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                Premium Mobile
+                <span className="block text-gradient">Auto Detailing</span>
+                <span className="block text-white/90">at Your Doorstep</span>
               </h1>
 
-              <p className="text-xl text-slate-300 mb-8">
-                We connect you with an available local provider for professional mobile auto detailing services.
+              <p className="text-lg sm:text-xl text-slate-400 mb-8 max-w-xl mx-auto lg:mx-0">
+                Get connected with verified local professionals who bring showroom-quality detailing directly to your home or office in Canton, MI.
               </p>
 
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-green-400 flex-shrink-0" />
-                  <span className="text-lg">Verified local professionals ready to serve you</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-green-400 flex-shrink-0" />
-                  <span className="text-lg">Quick response times from nearby providers</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-green-400 flex-shrink-0" />
-                  <span className="text-lg">Professional mobile detailing at your location</span>
-                </li>
-              </ul>
+              {/* Trust Badges */}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-6 mb-8">
+                <div className="flex items-center gap-2 text-slate-300">
+                  <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center">
+                    <CheckCircle2 className="w-5 h-5 text-green-400" />
+                  </div>
+                  <span className="text-sm">Verified Pros</span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-300">
+                  <div className="w-10 h-10 rounded-full bg-violet-500/10 flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-violet-400" />
+                  </div>
+                  <span className="text-sm">Fast Response</span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-300">
+                  <div className="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center">
+                    <Star className="w-5 h-5 text-yellow-400" />
+                  </div>
+                  <span className="text-sm">5-Star Service</span>
+                </div>
+              </div>
+
+              {/* Social Proof */}
+              <div className="flex items-center justify-center lg:justify-start gap-4">
+                <div className="flex -space-x-3">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 border-2 border-slate-950 flex items-center justify-center text-white text-xs font-medium">
+                      {String.fromCharCode(64 + i)}
+                    </div>
+                  ))}
+                </div>
+                <div className="text-sm text-slate-400">
+                  <span className="text-white font-semibold">500+</span> happy customers this month
+                </div>
+              </div>
             </div>
 
             {/* Right Form */}
             <div id="quote-form">
               {submitStatus === 'success' ? (
-                <Card className="shadow-2xl">
-                  <CardContent className="pt-8 text-center">
-                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle2 className="w-10 h-10 text-green-600" />
+                <Card className="glass-dark border-slate-700/50 shadow-2xl shadow-violet-500/10">
+                  <CardContent className="pt-10 pb-10 text-center">
+                    <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 glow-sm">
+                      <CheckCircle2 className="w-10 h-10 text-white" />
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-900 mb-3">Request Submitted!</h2>
-                    <p className="text-slate-600 mb-8">{resultMessage}</p>
+                    <h2 className="text-2xl font-bold text-white mb-3">Request Submitted!</h2>
+                    <p className="text-slate-400 mb-8">{resultMessage}</p>
                     <Button
                       onClick={() => setSubmitStatus('idle')}
-                      className="w-full bg-blue-500 hover:bg-blue-600"
+                      className="w-full gradient-primary hover:opacity-90 text-white border-0"
                       size="lg"
                     >
                       Submit Another Request
@@ -226,65 +262,65 @@ export default function HomePage() {
                   </CardContent>
                 </Card>
               ) : (
-                <Card className="shadow-2xl">
-                  <CardHeader className="pb-4">
-                    <CardTitle className="text-2xl">Get Connected Now</CardTitle>
-                    <CardDescription>
-                      Fill out the form below and we&apos;ll connect you with a local provider
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
+                <Card className="glass-dark border-slate-700/50 shadow-2xl shadow-violet-500/10">
+                  <CardContent className="pt-8 pb-8">
+                    <div className="text-center mb-6">
+                      <h2 className="text-2xl font-bold text-white mb-2">Get Your Free Quote</h2>
+                      <p className="text-slate-400">Connect with a local pro in minutes</p>
+                    </div>
+
                     {submitStatus === 'error' && (
-                      <Alert variant="destructive" className="mb-6">
-                        <AlertTitle>Error</AlertTitle>
-                        <AlertDescription>{resultMessage}</AlertDescription>
-                      </Alert>
+                      <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+                        <p className="text-red-400 text-sm">{resultMessage}</p>
+                      </div>
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="zip">ZIP Code *</Label>
-                        <Input
-                          id="zip"
-                          name="zip"
-                          value={formData.zip}
-                          onChange={handleChange}
-                          placeholder="48188"
-                          maxLength={5}
-                          className={errors.zip ? 'border-red-500' : ''}
-                        />
-                        {errors.zip && <p className="text-sm text-red-500">{errors.zip}</p>}
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="zip" className="text-slate-300">ZIP Code *</Label>
+                          <Input
+                            id="zip"
+                            name="zip"
+                            value={formData.zip}
+                            onChange={handleChange}
+                            placeholder="48188"
+                            maxLength={5}
+                            className={`bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-violet-500 focus:ring-violet-500/20 ${errors.zip ? 'border-red-500' : ''}`}
+                          />
+                          {errors.zip && <p className="text-xs text-red-400">{errors.zip}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="phone" className="text-slate-300">Phone *</Label>
+                          <Input
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            placeholder="(734) 555-0123"
+                            className={`bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-violet-500 focus:ring-violet-500/20 ${errors.phone ? 'border-red-500' : ''}`}
+                          />
+                          {errors.phone && <p className="text-xs text-red-400">{errors.phone}</p>}
+                        </div>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="fullName">Full Name *</Label>
+                        <Label htmlFor="fullName" className="text-slate-300">Full Name *</Label>
                         <Input
                           id="fullName"
                           name="fullName"
                           value={formData.fullName}
                           onChange={handleChange}
                           placeholder="John Smith"
-                          className={errors.fullName ? 'border-red-500' : ''}
+                          className={`bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-violet-500 focus:ring-violet-500/20 ${errors.fullName ? 'border-red-500' : ''}`}
                         />
-                        {errors.fullName && <p className="text-sm text-red-500">{errors.fullName}</p>}
+                        {errors.fullName && <p className="text-xs text-red-400">{errors.fullName}</p>}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="phone">Phone *</Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="(734) 555-0123"
-                          className={errors.phone ? 'border-red-500' : ''}
-                        />
-                        {errors.phone && <p className="text-sm text-red-500">{errors.phone}</p>}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email" className="text-slate-300">Email</Label>
                         <Input
                           id="email"
                           name="email"
@@ -292,23 +328,23 @@ export default function HomePage() {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="john@example.com"
-                          className={errors.email ? 'border-red-500' : ''}
+                          className={`bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-violet-500 focus:ring-violet-500/20 ${errors.email ? 'border-red-500' : ''}`}
                         />
-                        {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+                        {errors.email && <p className="text-xs text-red-400">{errors.email}</p>}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="serviceType">Service Requested</Label>
+                        <Label htmlFor="serviceType" className="text-slate-300">Service Requested</Label>
                         <Select
                           value={formData.serviceType}
                           onValueChange={(value) => setFormData((prev) => ({ ...prev, serviceType: value }))}
                         >
-                          <SelectTrigger>
+                          <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white focus:border-violet-500 focus:ring-violet-500/20">
                             <SelectValue />
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent className="bg-slate-800 border-slate-700">
                             {SERVICE_TYPES.map((service) => (
-                              <SelectItem key={service} value={service}>
+                              <SelectItem key={service} value={service} className="text-white hover:bg-slate-700">
                                 {service}
                               </SelectItem>
                             ))}
@@ -317,25 +353,15 @@ export default function HomePage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="preferredTiming">Preferred Timing</Label>
-                        <Input
-                          id="preferredTiming"
-                          name="preferredTiming"
-                          value={formData.preferredTiming}
-                          onChange={handleChange}
-                          placeholder="This week"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="details">Additional Details</Label>
+                        <Label htmlFor="details" className="text-slate-300">Additional Details</Label>
                         <Textarea
                           id="details"
                           name="details"
                           value={formData.details}
                           onChange={handleChange}
-                          placeholder="Tell us about your vehicle and specific needs..."
+                          placeholder="Tell us about your vehicle..."
                           rows={3}
+                          className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-violet-500 focus:ring-violet-500/20"
                         />
                       </div>
 
@@ -346,32 +372,35 @@ export default function HomePage() {
                           onCheckedChange={(checked) =>
                             setFormData((prev) => ({ ...prev, consent: checked === true }))
                           }
-                          className={errors.consent ? 'border-red-500' : ''}
+                          className={`border-slate-600 data-[state=checked]:bg-violet-600 data-[state=checked]:border-violet-600 ${errors.consent ? 'border-red-500' : ''}`}
                         />
-                        <Label htmlFor="consent" className="text-sm text-slate-600 leading-snug font-normal">
-                          By submitting, you agree to be contacted by phone, text, or email by a local provider. *
+                        <Label htmlFor="consent" className="text-sm text-slate-400 leading-snug font-normal cursor-pointer">
+                          I agree to be contacted by phone, text, or email by a local provider. *
                         </Label>
                       </div>
-                      {errors.consent && <p className="text-sm text-red-500">{errors.consent}</p>}
+                      {errors.consent && <p className="text-xs text-red-400">{errors.consent}</p>}
 
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full bg-blue-500 hover:bg-blue-600"
+                        className="w-full gradient-primary hover:opacity-90 text-white border-0 h-12 text-base font-semibold"
                         size="lg"
                       >
                         {isSubmitting ? (
                           <>
-                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                            Submitting...
+                            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                            Connecting You...
                           </>
                         ) : (
-                          'Get Connected to a Local Provider'
+                          <>
+                            Get Connected Now
+                            <ArrowRight className="w-5 h-5 ml-2" />
+                          </>
                         )}
                       </Button>
 
                       <p className="text-xs text-center text-slate-500 pt-2">
-                        Free service • No obligation • Quick response
+                        100% Free • No Obligation • Instant Match
                       </p>
                     </form>
                   </CardContent>
@@ -383,160 +412,205 @@ export default function HomePage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-slate-50">
+      <section className="relative py-24 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">How It Works</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Getting connected to a professional mobile detailer is simple and fast
+            <Badge className="mb-4 bg-violet-500/10 text-violet-400 border-violet-500/20">
+              Simple Process
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">How It Works</h2>
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+              Getting professional mobile detailing has never been easier
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12 relative">
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {[
               {
-                step: '1',
-                title: 'Submit Your Request',
-                description: 'Fill out the simple form with your ZIP code, contact info, and service needs. Takes less than 2 minutes.',
+                step: '01',
+                title: 'Submit Request',
+                description: 'Fill out the quick form with your location and service preferences.',
+                icon: Phone,
               },
               {
-                step: '2',
-                title: 'We Connect You',
-                description: 'We instantly match you with a local, verified mobile detailing provider in your area.',
+                step: '02',
+                title: 'Get Matched',
+                description: 'We instantly connect you with a verified local detailing pro.',
+                icon: Zap,
               },
               {
-                step: '3',
-                title: 'Get Your Car Detailed',
-                description: 'The provider contacts you directly to schedule service at your preferred location and time.',
+                step: '03',
+                title: 'Enjoy Results',
+                description: 'The provider comes to you and delivers showroom-quality results.',
+                icon: Sparkles,
               },
             ].map((item, i) => (
-              <div key={i} className="text-center">
-                <div className="w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg">
-                  {item.step}
+              <div key={i} className="relative group">
+                <div className="text-center p-8 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:border-violet-500/50 transition-all duration-300 hover-lift">
+                  <div className="text-6xl font-bold text-gradient opacity-20 mb-4">{item.step}</div>
+                  <div className="w-16 h-16 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 glow-sm">
+                    <item.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
+                  <p className="text-slate-400">{item.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
-                <p className="text-slate-600">{item.description}</p>
+                {i < 2 && (
+                  <div className="hidden md:block absolute top-1/2 -right-6 w-12 h-[2px] bg-gradient-to-r from-violet-500/50 to-transparent" />
+                )}
               </div>
             ))}
           </div>
-
-          <div className="flex justify-center mt-12">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-white rounded-full shadow-md border">
-              <CheckCircle2 className="w-5 h-5 text-green-500" />
-              <span className="font-medium text-slate-700">Verified Local Professionals Only</span>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-20 bg-white">
+      {/* Services */}
+      <section className="relative py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Professional Mobile Detailing Services
+            <Badge className="mb-4 bg-violet-500/10 text-violet-400 border-violet-500/20">
+              Our Services
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Premium Detailing Services
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Connect with expert providers offering comprehensive auto detailing services
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+              Connect with providers offering comprehensive auto care solutions
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Interior Detailing */}
-            <div className="relative rounded-2xl overflow-hidden group h-80">
-              <Image
-                src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?q=80&w=2071"
-                alt="Interior Detailing"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-2xl font-bold text-white mb-2">Interior Detailing</h3>
-                <p className="text-slate-200">Deep cleaning, vacuuming, leather treatment, and odor removal</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'Interior Detailing',
+                description: 'Deep cleaning, vacuuming, leather treatment, stain removal, and odor elimination.',
+                image: 'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?q=80&w=2071',
+              },
+              {
+                title: 'Exterior Detailing',
+                description: 'Hand wash, clay bar treatment, polish, wax, and paint protection.',
+                image: 'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=2031',
+              },
+              {
+                title: 'Full Detail Package',
+                description: 'Complete interior and exterior transformation for the ultimate clean.',
+                image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2070',
+              },
+              {
+                title: 'Paint Correction',
+                description: 'Remove swirl marks, scratches, and imperfections for a flawless finish.',
+                image: 'https://images.unsplash.com/photo-1619725002198-6a689b72f41d?q=80&w=2069',
+              },
+              {
+                title: 'Ceramic Coating',
+                description: 'Long-lasting protection with hydrophobic properties and UV resistance.',
+                image: 'https://images.unsplash.com/photo-1600275669439-14e40452d20b?q=80&w=2074',
+              },
+              {
+                title: 'Mobile Service',
+                description: 'Professional detailing at your home, office, or any location you choose.',
+                image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2064',
+              },
+            ].map((service, i) => (
+              <div key={i} className="group relative rounded-2xl overflow-hidden hover-lift">
+                <div className="relative h-64">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">{service.title}</h3>
+                  <p className="text-slate-300 text-sm">{service.description}</p>
+                </div>
               </div>
-            </div>
-
-            {/* Exterior Detailing */}
-            <div className="relative rounded-2xl overflow-hidden group h-80">
-              <Image
-                src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=2031"
-                alt="Exterior Detailing"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-2xl font-bold text-white mb-2">Exterior Detailing</h3>
-                <p className="text-slate-200">Hand wash, clay bar treatment, polish, and wax protection</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Section */}
-      <section className="py-20 bg-slate-50">
+      {/* Why Choose Us */}
+      <section className="relative py-24 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Image Side */}
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden h-[500px]">
-                <Image
-                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2064"
-                  alt="Professional car detailing"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-6">
-                <div className="text-4xl font-bold text-blue-500">100%</div>
-                <div className="text-slate-600 font-medium">Satisfaction</div>
-              </div>
-            </div>
-
-            {/* Content Side */}
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-                Why Choose Canton Mobile Detail Pros?
+              <Badge className="mb-4 bg-violet-500/10 text-violet-400 border-violet-500/20">
+                Why Choose Us
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+                The Smarter Way to Find
+                <span className="text-gradient"> Quality Detailing</span>
               </h2>
-              <p className="text-lg text-slate-600 mb-8">
-                We make finding professional mobile detailing services in Canton effortless and reliable.
+              <p className="text-lg text-slate-400 mb-10">
+                We&apos;ve simplified the process of finding trusted mobile detailing professionals in Canton.
               </p>
 
               <div className="space-y-6">
                 {[
                   {
                     icon: MapPin,
-                    title: 'Local & Convenient',
-                    description: 'Get connected to verified mobile detailers who come directly to your home, office, or preferred location in Canton.',
+                    title: 'Hyperlocal Matching',
+                    description: 'We connect you with providers who serve your specific ZIP code area.',
                   },
                   {
-                    icon: User,
+                    icon: Shield,
                     title: 'Verified Professionals',
-                    description: 'We only connect you with trusted, experienced mobile detailing providers who meet our quality standards.',
+                    description: 'Every provider is vetted for quality, reliability, and professionalism.',
                   },
                   {
                     icon: Clock,
-                    title: 'Fast Response',
-                    description: 'Submit your request and get contacted quickly by a local provider ready to schedule your detailing service.',
+                    title: 'Fast Response Times',
+                    description: 'Get contacted by a local pro within minutes of submitting your request.',
                   },
                   {
-                    icon: Download,
-                    title: 'Free Connection Service',
-                    description: "There's no charge to submit a request. You only pay the detailing provider directly for the service you choose.",
+                    icon: Sparkles,
+                    title: 'Premium Results',
+                    description: 'Expect showroom-quality detailing delivered right to your location.',
                   },
                 ].map((feature, i) => (
-                  <div key={i} className="flex gap-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <feature.icon className="w-6 h-6 text-blue-500" />
+                  <div key={i} className="flex gap-4 group">
+                    <div className="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-violet-500/20 transition-colors">
+                      <feature.icon className="w-6 h-6 text-violet-400" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-slate-900 mb-1">{feature.title}</h3>
-                      <p className="text-slate-600">{feature.description}</p>
+                      <h3 className="font-semibold text-white mb-1">{feature.title}</h3>
+                      <p className="text-slate-400">{feature.description}</p>
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="relative rounded-2xl overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=2070"
+                  alt="Professional detailing"
+                  width={600}
+                  height={500}
+                  className="object-cover rounded-2xl"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent" />
+              </div>
+
+              {/* Stats Card */}
+              <div className="absolute -bottom-8 -left-8 bg-slate-800/90 backdrop-blur-xl border border-slate-700 rounded-2xl p-6 shadow-xl">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-xl gradient-primary flex items-center justify-center">
+                    <Star className="w-7 h-7 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-white">4.9/5</div>
+                    <div className="text-slate-400 text-sm">Average Rating</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Badge */}
+              <div className="absolute -top-4 -right-4 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full px-4 py-2 shadow-lg glow-sm">
+                <span className="text-white font-semibold text-sm">100% Free Service</span>
               </div>
             </div>
           </div>
@@ -544,30 +618,35 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-blue-500">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Ready for a Professionally Detailed Vehicle?
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 gradient-primary opacity-90" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:32px_32px]" />
+
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+            Ready for a Showroom Shine?
           </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Submit your request now and get connected with a local mobile detailing provider in minutes.
+          <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+            Join hundreds of satisfied customers who&apos;ve discovered the convenience of premium mobile detailing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="bg-white text-blue-500 border-white hover:bg-blue-50"
+              className="bg-white text-violet-600 hover:bg-white/90 h-14 px-8 text-base font-semibold"
             >
-              <a href="#quote-form">Request Service Now</a>
+              <a href="#quote-form">
+                Get Your Free Quote
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </a>
             </Button>
             <Button
               asChild
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-blue-600"
+              className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-base font-semibold"
             >
-              <Link href="/business">Are You a Detailer?</Link>
+              <Link href="/business">Join as a Provider</Link>
             </Button>
           </div>
         </div>
